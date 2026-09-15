@@ -19,7 +19,7 @@ namespace ReactApp2.Server.Controllers
 
 
  
-        [HttpGet("GetPrinters")]
+        [HttpGet("Get")]
         public async Task<IActionResult> GetPrinters()
         {
             var printers = await _repository.GetPrintersAsync();
@@ -27,7 +27,7 @@ namespace ReactApp2.Server.Controllers
             return Ok(printers);
         }
 
-        [HttpGet("GetPrinterById/{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetPrinterById(int id)
         {
             var printer = await _repository.GetPrinterByIdAsync(id);
@@ -43,7 +43,7 @@ namespace ReactApp2.Server.Controllers
             return Ok(printer);
         }
 
-        [HttpPost("CreatePrinter")]
+        [HttpPost("Create")]
         public async Task<IActionResult> CreatePrinter([FromBody] Printer printer)
         {
             if (!ModelState.IsValid)
@@ -68,7 +68,7 @@ namespace ReactApp2.Server.Controllers
             });
         }
 
-        [HttpPut("UpdatePrinter")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdatePrinter([FromBody] Printer printer)
         {
             if (!ModelState.IsValid)
@@ -113,7 +113,7 @@ namespace ReactApp2.Server.Controllers
         }
 
 
-        [HttpDelete("DeletePrinter/{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletePrinter(int id)
         {
             if (id <= 0)
