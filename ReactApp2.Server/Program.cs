@@ -1,6 +1,10 @@
+using Microsoft.Data.SqlClient;
+using ReactApp2.Server.Repository;
+using System.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Controllers
 builder.Services.AddControllers();
 
 // CORS
@@ -14,8 +18,21 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Database Connection
+builder.Services.AddScoped<IDbConnection>(sp =>
+{
+    var connectionString =
+        builder.Configuration.GetConnectionString("connection");
+
+    return new SqlConnection(connectionString);
+});
+
+// Repository
+builder.Services.AddScoped<IPrinterRepository, PrinterRepository>();
 
 var app = builder.Build();
 
@@ -27,7 +44,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
 app.UseCors("ReactPolicy");
 
 app.UseAuthorization();
@@ -35,8 +51,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseDefaultFiles();
-app.UseStaticFiles();           
+app.UseStaticFiles();
 
 app.MapFallbackToFile("/index.html");
 
-app.Run();  
+app.Run();
