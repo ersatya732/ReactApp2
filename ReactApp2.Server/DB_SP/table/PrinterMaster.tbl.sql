@@ -1,0 +1,10 @@
+CREATE TABLE PrinterMaster
+(
+    PrinterAutoId INT IDENTITY(1,1) PRIMARY KEY,
+    PrinterName VARCHAR(100) NOT NULL,
+    Model VARCHAR(100) NOT NULL,
+    IPAddress VARCHAR(50) NOT NULL,
+    Status INT NOT NULL,
+    CreatedDate DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdatedDate DATETIME NULL
+);
